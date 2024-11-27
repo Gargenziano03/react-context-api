@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import GlobalContexts from '../contexts/GlobalContexts';
 export default function ListPost() {
 
+
     const [postsData, setPostsData] = useState({})
+    const { apiUrl } = useContext(GlobalContexts)
 
 
 
-    function fetchData(url = 'http://127.0.0.1:3000/posts') {
+    function fetchData(url = `${apiUrl}/posts`) {
         fetch(url)
             .then(resp => resp.json())
             .then(data => {
@@ -25,7 +28,7 @@ export default function ListPost() {
                             <div className="col" key={post.id}>
                                 <div className="card">
                                     <h3>{post.title}</h3>
-                                    <img width="200px" height="150px" src={`http://127.0.0.1:3000/${post.image}`} alt="" />
+                                    <img width="200px" height="150px" src={`${apiUrl}/${post.image}`} alt="" />
                                     <p>{post.content}</p>
                                 </div>
                             </div>
